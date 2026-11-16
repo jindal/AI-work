@@ -130,7 +130,7 @@ h1{font-size:clamp(2.7rem,7.4vw,5.9rem);line-height:.98;letter-spacing:-.035em;f
 .card:hover::before{opacity:1}
 .card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
 .card > *{position:relative}
-.card.dim{opacity:.34;filter:saturate(.5);transform:scale(.985)}
+.card[hidden]{display:none}
 .card.match{border-color:var(--accent)}
 .card-top{display:flex;justify-content:space-between;gap:10px;color:var(--muted)}
 .big{font:700 clamp(2.4rem,5vw,3.4rem)/1 var(--display);letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums;margin-top:6px}
@@ -297,7 +297,7 @@ details.job > summary:hover .jt{color:var(--accent)}
   <div class="wrap">
     <div class="eyebrow mono">Impact</div>
     <h2>Results by product.</h2>
-    <p class="sub">Select a theme to highlight the related work.</p>
+    <p class="sub">Select a theme to show only the related work.</p>
 
     <div class="lens" role="group" aria-label="Filter impact by theme">
       <span class="lbl mono">Filter</span>
@@ -610,7 +610,7 @@ details.job > summary:hover .jt{color:var(--accent)}
     cards.forEach(function(card){
       var tags = (card.getAttribute('data-tags') || '').split(' ');
       var hit = l === 'all' || tags.indexOf(l) > -1;
-      card.classList.toggle('dim', !hit);
+      card.hidden = !hit;
       card.classList.toggle('match', hit && l !== 'all');
       if(hit) n++;
     });

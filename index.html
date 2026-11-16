@@ -97,7 +97,7 @@ h1{font-size:clamp(2.75rem,7.2vw,5.5rem);line-height:1.02;letter-spacing:-.025em
 .sub{color:var(--muted);max-width:60ch}
 
 /* filter */
-.lens{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 12px;align-items:center}
+.lens{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 28px;align-items:center}
 .lens .lbl{margin-right:6px}
 .chip{height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 .92rem var(--body);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
 .chip:hover{border-color:var(--ink)}
@@ -309,7 +309,6 @@ details[open] .jbody{animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
       <button class="chip" type="button" data-lens="revenue" aria-pressed="false">Revenue</button>
       <button class="chip" type="button" data-lens="quality" aria-pressed="false">AI quality and cost</button>
     </div>
-    <p id="count" class="mono" aria-live="polite">Showing all 9 results</p>
 
     <div class="grid" id="cards">
       <article class="card spot" data-tags="growth">
@@ -618,7 +617,6 @@ details[open] .jbody{animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
       card.classList.toggle('match', hit && l !== 'all');
       if(hit) n++;
     });
-    countEl.textContent = l === 'all' ? ('Showing all ' + cards.length + ' results') : (n + ' of ' + cards.length + ' match "' + lensNames[l] + '"');
   }
   chips.forEach(function(c){ c.addEventListener('click', function(){ setLens(c.getAttribute('data-lens')); }); });
 

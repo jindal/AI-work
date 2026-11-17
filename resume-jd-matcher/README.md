@@ -1,11 +1,33 @@
-**Live page:** https://jindal.github.io/AI-work/resume-jd-matcher/
-https://claude.ai/artifact/8Gr4SX5xo29CjogtRbFN5k
+
+[**▶ Open the app**](https://jindal.github.io/AI-work/resume-jd-matcher/) · [Full version with AI (claude.ai)](https://claude.ai/artifact/8Gr4SX5xo29CjogtRbFN5k)
+
 # Resume ↔ JD Matcher
 
 A small web app that checks how well your resume fits a job description, then helps you tailor the resume for that role without losing its original formatting.
 
+**Live page:** https://jindal.github.io/AI-work/resume-jd-matcher/
 
 > The AI steps (fit check and tailoring) only run inside claude.ai, where the app was built. On this GitHub Pages copy, uploading, previewing, editing and downloading work, but "Check my fit" will report that AI matching isn't available.
+
+## Screenshots
+
+**1. Add a job description and your resume**
+
+![Input screen](screenshots/1-input.png)
+
+**2. Fit report: score, confidence, recommendation, scorecard, strengths and gaps**
+
+![Fit report](screenshots/2-fit-report.png)
+
+**3. Suggested edits you can accept, change or skip**
+
+![Suggested edits](screenshots/3-suggested-edits.png)
+
+**4. Updated resume in the original PDF's format, ready to download**
+
+![Updated resume](screenshots/4-updated-resume.png)
+
+_Screenshots use a sample resume and a sample job description._
 
 ## What it does
 

@@ -1,0 +1,307 @@
+{
+  "calendar": {
+    "csm": {
+      "name": "Ritika Jindal",
+      "email": "ritika@yourco.com"
+    },
+    "events": [
+      {
+        "id": "cal-001",
+        "title": "Northwind x YourCo | Q4 Business Review",
+        "start": "2026-11-25T11:00:00+05:30",
+        "end": "2026-11-25T12:00:00+05:30",
+        "attendees": [
+          {
+            "name": "Ritika Jindal",
+            "email": "ritika@yourco.com"
+          },
+          {
+            "name": "Dana Whitfield",
+            "email": "dana.whitfield@northwind.io"
+          },
+          {
+            "name": "Marcus Lee",
+            "email": "marcus.lee@northwind.io"
+          },
+          {
+            "name": "Arjun Rao",
+            "email": "arjun.rao@yourco.com"
+          }
+        ],
+        "description": "Quarterly review. Agenda: adoption, open support issues, 2027 roadmap."
+      },
+      {
+        "id": "cal-002",
+        "title": "Helix Health - monthly check-in",
+        "start": "2026-11-25T15:30:00+05:30",
+        "end": "2026-11-25T16:00:00+05:30",
+        "attendees": [
+          {
+            "name": "Ritika Jindal",
+            "email": "ritika@yourco.com"
+          },
+          {
+            "name": "Priya Menon",
+            "email": "priya.menon@helixhealth.com"
+          }
+        ],
+        "description": ""
+      },
+      {
+        "id": "cal-003",
+        "title": "CS team standup",
+        "start": "2026-11-25T10:00:00+05:30",
+        "end": "2026-11-25T10:15:00+05:30",
+        "attendees": [
+          {
+            "name": "Ritika Jindal",
+            "email": "ritika@yourco.com"
+          },
+          {
+            "name": "Arjun Rao",
+            "email": "arjun.rao@yourco.com"
+          }
+        ],
+        "description": "Internal"
+      }
+    ]
+  },
+  "gainsight": {
+    "companies": [
+      {
+        "id": "gs-co-northwind",
+        "name": "Northwind Logistics",
+        "domains": [
+          "northwind.io"
+        ],
+        "arr_usd": 186000,
+        "renewal_date": "2027-02-28",
+        "stage": "Adopting",
+        "segment": "Mid-Market",
+        "health": {
+          "score": 58,
+          "previous_score": 76,
+          "trend": "down",
+          "drivers": {
+            "Product usage": 52,
+            "Support": 41,
+            "Sentiment": 63,
+            "Engagement": 70
+          }
+        },
+        "nps": {
+          "score": 6,
+          "date": "2026-10-14",
+          "comment": "Product is solid but the sync delays are hurting our ops team."
+        },
+        "usage": {
+          "active_users_30d": 142,
+          "licensed_users": 250,
+          "active_users_prev_30d": 181
+        },
+        "stakeholders": [
+          {
+            "name": "Dana Whitfield",
+            "email": "dana.whitfield@northwind.io",
+            "title": "VP Operations",
+            "role": "Executive Sponsor",
+            "sentiment": "Neutral"
+          },
+          {
+            "name": "Marcus Lee",
+            "email": "marcus.lee@northwind.io",
+            "title": "Ops Systems Manager",
+            "role": "Champion",
+            "sentiment": "Positive"
+          },
+          {
+            "name": "Elena Park",
+            "email": "elena.park@northwind.io",
+            "title": "Director, Finance",
+            "role": "Economic Buyer",
+            "sentiment": "Unknown"
+          }
+        ],
+        "ctas": [
+          {
+            "id": "gs-cta-101",
+            "type": "Risk",
+            "name": "Usage drop >20% in 30 days",
+            "priority": "High",
+            "status": "Open",
+            "due": "2026-11-30"
+          },
+          {
+            "id": "gs-cta-102",
+            "type": "Renewal",
+            "name": "Renewal prep - 90 days out",
+            "priority": "Medium",
+            "status": "Open",
+            "due": "2026-11-30"
+          }
+        ],
+        "timeline": [
+          {
+            "id": "gs-tl-201",
+            "date": "2026-11-05",
+            "type": "Call",
+            "summary": "Check-in with Marcus. Data sync from WMS delayed up to 6 hours on 3 occasions; support ticket raised. Marcus wants an ETA before the QBR."
+          },
+          {
+            "id": "gs-tl-202",
+            "date": "2026-10-14",
+            "type": "Survey",
+            "summary": "NPS 6 from Dana Whitfield, citing sync delays."
+          },
+          {
+            "id": "gs-tl-203",
+            "date": "2026-09-18",
+            "type": "Meeting",
+            "summary": "Q3 review. Dana asked about forecasting features for 2027 planning; interested in the AI forecasting add-on."
+          }
+        ]
+      },
+      {
+        "id": "gs-co-helix",
+        "name": "Helix Health",
+        "domains": [
+          "helixhealth.com"
+        ],
+        "arr_usd": 64000,
+        "renewal_date": "2027-08-15",
+        "stage": "Expanding",
+        "segment": "SMB",
+        "health": {
+          "score": 84,
+          "previous_score": 80,
+          "trend": "up",
+          "drivers": {
+            "Product usage": 88,
+            "Support": 90,
+            "Sentiment": 80,
+            "Engagement": 78
+          }
+        },
+        "nps": {
+          "score": 9,
+          "date": "2026-09-30",
+          "comment": "The team loves the new dashboards."
+        },
+        "usage": {
+          "active_users_30d": 47,
+          "licensed_users": 50,
+          "active_users_prev_30d": 41
+        },
+        "stakeholders": [
+          {
+            "name": "Priya Menon",
+            "email": "priya.menon@helixhealth.com",
+            "title": "Head of Patient Ops",
+            "role": "Champion",
+            "sentiment": "Positive"
+          }
+        ],
+        "ctas": [
+          {
+            "id": "gs-cta-301",
+            "type": "Expansion",
+            "name": "Seat limit reached (94% utilisation)",
+            "priority": "Medium",
+            "status": "Open",
+            "due": "2026-12-10"
+          }
+        ],
+        "timeline": [
+          {
+            "id": "gs-tl-401",
+            "date": "2026-10-28",
+            "type": "Call",
+            "summary": "Priya mentioned two new clinics opening in Q1 and that more staff will need access."
+          }
+        ]
+      }
+    ]
+  },
+  "slack": {
+    "messages": [
+      {
+        "id": "slack-9001",
+        "channel": "#acct-northwind",
+        "author": "Arjun Rao (Support)",
+        "ts": "2026-11-21T14:02:00+05:30",
+        "text": "Root cause for Northwind sync delays found: rate limiting on their WMS connector. Fix is in the 26.12 release, ETA Dec 9."
+      },
+      {
+        "id": "slack-9002",
+        "channel": "#acct-northwind",
+        "author": "Sam Ortiz (AE)",
+        "ts": "2026-11-19T10:15:00+05:30",
+        "text": "Heads up: heard Dana Whitfield may be moving to a new role in January. Worth confirming who owns the renewal on their side."
+      },
+      {
+        "id": "slack-9003",
+        "channel": "#cs-leadership",
+        "author": "Meera Iyer (CS Director)",
+        "ts": "2026-11-20T09:30:00+05:30",
+        "text": "Northwind is on the at-risk list for Q1 renewals. Please come out of the QBR with a mutual success plan and renewal owner confirmed."
+      },
+      {
+        "id": "slack-9004",
+        "channel": "#acct-northwind",
+        "author": "Sam Ortiz (AE)",
+        "ts": "2026-11-12T16:40:00+05:30",
+        "text": "Northwind asked about AI forecasting add-on pricing last quarter. Could be part of the renewal conversation if sentiment recovers."
+      },
+      {
+        "id": "slack-9101",
+        "channel": "#acct-helix",
+        "author": "Sam Ortiz (AE)",
+        "ts": "2026-11-18T11:00:00+05:30",
+        "text": "Helix is at 47/50 seats. Happy to quote a 25-seat pack if Priya confirms the new clinics timeline."
+      },
+      {
+        "id": "slack-9201",
+        "channel": "#random",
+        "author": "Arjun Rao (Support)",
+        "ts": "2026-11-22T12:00:00+05:30",
+        "text": "Anyone up for lunch at the new place near the office?"
+      }
+    ]
+  },
+  "gmail": {
+    "messages": [
+      {
+        "id": "gmail-a11",
+        "from": "marcus.lee@northwind.io",
+        "to": "ritika@yourco.com",
+        "date": "2026-11-20T18:22:00+05:30",
+        "subject": "Re: Sync delays - any update?",
+        "body": "Hi Ritika, the ops team hit another 5-hour delay on Tuesday. Dana will ask about this at the QBR, so it would help to have a firm fix date and a plan to stop it recurring. Thanks, Marcus"
+      },
+      {
+        "id": "gmail-a12",
+        "from": "dana.whitfield@northwind.io",
+        "to": "ritika@yourco.com",
+        "date": "2026-11-18T09:05:00+05:30",
+        "subject": "QBR agenda",
+        "body": "Ritika, for the QBR please cover: (1) the sync issue and what you're doing about it, (2) adoption by region, (3) how forecasting could help our 2027 peak-season planning. Elena from Finance may join for the last 15 minutes. - Dana"
+      },
+      {
+        "id": "gmail-a21",
+        "from": "priya.menon@helixhealth.com",
+        "to": "ritika@yourco.com",
+        "date": "2026-11-22T13:10:00+05:30",
+        "subject": "New clinics",
+        "body": "Hi Ritika, quick one before our check-in: both new clinics now open on Feb 2. Can you share what adding ~20 users would look like? Also, can we get a refresher training for new staff?"
+      },
+      {
+        "id": "gmail-z99",
+        "from": "newsletter@saasweekly.com",
+        "to": "ritika@yourco.com",
+        "date": "2026-11-23T07:00:00+05:30",
+        "subject": "This week in SaaS",
+        "body": "Top stories..."
+      }
+    ]
+  }
+}

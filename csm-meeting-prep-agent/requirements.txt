@@ -1,0 +1,8 @@
+jinja2>=3.1
+google-genai>=1.30      # Gemini agent (--llm gemini)
+
+# Only needed for --source live
+google-api-python-client
+google-auth-oauthlib
+slack_sdk
+requests

@@ -74,4 +74,3 @@ Cockpit, Timeline and Person APIs, whose field names vary by org (TODOs in `conn
 ## Ideas for next steps
 - Run it every morning on a schedule and post the briefs to Slack
 - Add past call transcripts (Gong/Zoom) as a fourth source
-- Build an eval set: hand-written "ideal briefs" for 10 accounts, scored on recall of key risks

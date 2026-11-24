@@ -6,6 +6,20 @@ customer calls, researches each account, and writes a one-page HTML prep brief.
 
 **[See a sample brief →](https://jindal.github.io/AI-work/csm-meeting-prep-agent/sample_brief.html)** (generated from the synthetic data in offline mode)
 
+## What the CSM gets
+
+**At a glance:** the situation in two lines, the meeting goal, and the account's key numbers straight from Gainsight.
+
+![Summary and account snapshot](screenshots/1-summary-and-snapshot.png)
+
+**Who's in the room and what's going on:** stakeholders and their roles, open issues, risks, opportunities and recent activity. Every point links to its source.
+
+![Attendees, issues, risks and opportunities](screenshots/2-people-issues-risks.png)
+
+**What to say, and why you can trust it:** talking points and questions, the numbered sources behind every claim, a grounding score, and a trace of each tool call the agent made.
+
+![Talking points, sources and grounding check](screenshots/3-talking-points-sources.png)
+
 ## How it works
 
 ```

@@ -1,0 +1,9 @@
+# Secrets - never commit
+credentials.json
+token.json
+.env
+
+# Generated
+briefs/
+__pycache__/
+*.pyc

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prep: {{ m.company.name }} | {{ m.event.title }}</title>
+<style>
+  :root { --ink:#1d2433; --muted:#667085; --line:#e4e7ec; --bg:#f7f8fa; --card:#fff;
+          --red:#b42318; --red-bg:#fef3f2; --amber:#b54708; --amber-bg:#fffaeb;
+          --green:#067647; --green-bg:#ecfdf3; --blue:#1849a9; --blue-bg:#eff4ff; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.5 -apple-system, "Segoe UI", Inter, Roboto, sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { max-width:960px; margin:0 auto; padding:32px 24px 48px; }
+  header .eyebrow { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  h1 { font-size:28px; margin:4px 0 2px; }
+  .meta { color:var(--muted); }
+  h2 { font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:28px 0 10px; }
+  .tldr { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; padding:16px 20px; margin-top:20px; }
+  .tldr p { margin:0 0 8px; font-size:16px; }
+  .goal { font-weight:600; color:var(--blue); margin:0 !important; font-size:15px !important; }
+  .tiles { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .tile { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .tile .k { font-size:12px; color:var(--muted); }
+  .tile .v { font-size:22px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--muted); }
+  .bad { color:var(--red); } .good { color:var(--green); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:4px 18px 12px; }
+  .card h2 { margin-top:14px; }
+  ul { margin:0; padding-left:18px; } li { margin:6px 0; }
+  .people { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:10px; }
+  .person { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .person .n { font-weight:600; } .person .r { font-size:13px; color:var(--muted); }
+  .tag { display:inline-block; font-size:11px; font-weight:600; padding:1px 7px; border-radius:99px; margin-right:4px; vertical-align:1px; }
+  .sev-high { background:var(--red-bg); color:var(--red); } .sev-medium { background:var(--amber-bg); color:var(--amber); }
+  .sev-low { background:var(--bg); color:var(--muted); }
+  .unverified { background:var(--amber-bg); color:var(--amber); }
+  .cite { font-size:11px; color:var(--blue); text-decoration:none; background:var(--blue-bg); border-radius:4px; padding:0 4px; margin-left:3px; }
+  .risks li::marker { color:var(--red); } .opps li::marker { color:var(--green); }
+  ol.questions li { margin:6px 0; }
+  .sources { font-size:13px; } .sources li { margin:5px 0; color:var(--muted); }
+  .sources b { color:var(--ink); font-weight:600; }
+  footer { margin-top:28px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; }
+  details summary { cursor:pointer; } code { font-size:12px; }
+  .empty { color:var(--muted); font-style:italic; }
+  @media (max-width:760px) { .tiles { grid-template-columns:repeat(2,1fr); } .grid2 { grid-template-columns:1fr; } }
+  @media print { body { background:#fff; } .wrap { padding:0; } details { display:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+{% macro cites(item) -%}
+  {%- for s in item.sources %}<a class="cite" href="#src-{{ ref[s] }}">{{ ref[s] }}</a>{% endfor -%}
+  {%- if not item.verified %} <span class="tag unverified">unverified</span>{% endif -%}
+{%- endmacro %}
+
+{% macro bullets(items, cls="") -%}
+  {% if items %}<ul class="{{ cls }}">
+    {% for i in items %}<li>{% if i.severity %}<span class="tag sev-{{ i.severity|lower }}">{{ i.severity|upper }}</span>{% endif %}{{ i.text }}{{ cites(i) }}</li>{% endfor %}
+  </ul>{% else %}<p class="empty">Nothing found.</p>{% endif %}
+{%- endmacro %}
+
+<header>
+  <div class="eyebrow">Meeting prep brief</div>
+  <h1>{{ m.company.name }}</h1>
+  <div class="meta">{{ m.event.title }} · {{ start.strftime("%a %d %b, %I:%M %p") }}{% if s.stage %} · Stage: {{ s.stage }}{% endif %}</div>
+</header>
+
+<div class="tldr">
+  <p>{{ b.tldr }}</p>
+  {% if b.meeting_goal %}<p class="goal">Goal: {{ b.meeting_goal }}</p>{% endif %}
+</div>
+
+<h2>Account snapshot <span style="text-transform:none;letter-spacing:0">(from Gainsight)</span></h2>
+<div class="tiles">
+  <div class="tile"><div class="k">ARR</div><div class="v">{{ s.arr }}</div><div class="d">{{ m.company.name.split()[0] }}</div></div>
+  <div class="tile"><div class="k">Renewal</div><div class="v {{ 'bad' if s.renewal_days is not none and s.renewal_days < 120 }}">{{ s.renewal_days if s.renewal_days is not none else "n/a" }}{% if s.renewal_days is not none %}<span style="font-size:14px"> days</span>{% endif %}</div><div class="d">{{ s.renewal }}</div></div>
+  <div class="tile"><div class="k">Health score</div>
+    <div class="v {{ 'bad' if s.health_prev and s.health < s.health_prev else 'good' }}">{{ s.health if s.health is not none else "n/a" }}</div>
+    <div class="d">{% if s.health_prev %}was {{ s.health_prev }} ({{ '%+d' % (s.health - s.health_prev) }}){% endif %}</div></div>
+  <div class="tile"><div class="k">NPS (latest)</div><div class="v {{ 'bad' if s.nps is not none and s.nps <= 6 else 'good' if s.nps is not none and s.nps >= 9 }}">{{ s.nps if s.nps is not none else "n/a" }}</div><div class="d">{{ 'detractor' if s.nps is not none and s.nps <= 6 else 'promoter' if s.nps is not none and s.nps >= 9 else 'passive' if s.nps is not none else '' }}</div></div>
+  <div class="tile"><div class="k">Active users (30d)</div><div class="v">{{ s.active if s.active is not none else "n/a" }}{% if s.licensed %}<span style="font-size:14px;color:var(--muted)">/{{ s.licensed }}</span>{% endif %}</div>
+    <div class="d {{ 'bad' if s.usage_change is not none and s.usage_change < 0 else 'good' }}">{% if s.usage_change is not none %}{{ '%+d' % s.usage_change }}% vs prior 30d{% endif %}</div></div>
+</div>
+{% if s.drivers %}<p class="meta" style="font-size:13px;margin:8px 2px 0">Health drivers: {% for k, v in s.drivers.items() %}{{ k }} <b class="{{ 'bad' if v < 60 }}">{{ v }}</b>{{ " · " if not loop.last }}{% endfor %}</p>{% endif %}
+
+<h2>Who's in the room</h2>
+<div class="people">
+  {% for p in b.attendees %}
+  <div class="person">
+    <div class="n">{{ p.name }}</div>
+    <div class="r">{{ p.title }}{% if p.title and p.role %} · {% endif %}{{ p.role }}</div>
+    <div style="font-size:14px;margin-top:4px">{{ p.text }}{{ cites(p) }}</div>
+  </div>
+  {% endfor %}
+  {% for a in m.internal %}
+  <div class="person"><div class="n">{{ a.name }}</div><div class="r">Internal · joining from our side</div></div>
+  {% endfor %}
+</div>
+
+<div class="grid2">
+  <div class="card"><h2>Open issues</h2>{{ bullets(b.open_issues) }}</div>
+  <div class="card"><h2>Risks</h2>{{ bullets(b.risks, "risks") }}</div>
+  <div class="card"><h2>Opportunities</h2>{{ bullets(b.opportunities, "opps") }}</div>
+  <div class="card"><h2>What's happened recently</h2>{{ bullets(b.recent_developments) }}</div>
+</div>
+
+<h2>Talking points</h2>
+<div class="card" style="padding-top:12px">{{ bullets(b.talking_points) }}</div>
+
+<div class="grid2">
+  <div class="card"><h2>Questions to ask</h2>
+    {% if b.questions_to_ask %}<ol class="questions">{% for q in b.questions_to_ask %}<li>{{ q }}</li>{% endfor %}</ol>{% else %}<p class="empty">None.</p>{% endif %}
+  </div>
+  <div class="card"><h2>Watch-outs</h2>{{ bullets(b.watch_outs) }}</div>
+</div>
+
+<h2>Sources</h2>
+<ol class="sources">
+  {% for src in sources %}
+  <li id="src-{{ src.n }}"><b>{{ src.where }}</b> · {{ src.who }} · {{ src.when }}. {{ src.text[:220] }}{{ "…" if src.text|length > 220 }}</li>
+  {% endfor %}
+</ol>
+
+<footer>
+  <b>Grounding check:</b> {{ g.verified }} of {{ g.claims }} statements ({{ g.pct }}%) are backed by a source the agent actually retrieved.
+  {% if g.problems %}Items marked <span class="tag unverified">unverified</span> should be double-checked.{% endif %}
+  <details style="margin-top:8px"><summary>How this brief was made ({{ "Gemini agent" if llm == "gemini" else "offline rule-based mode" }}, {{ trace|length }} tool calls)</summary>
+    <ul>{% for t in trace %}<li><code>{{ t }}</code></li>{% endfor %}</ul>
+  </details>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prep: Northwind Logistics | Northwind x YourCo | Q4 Business Review</title>
+<style>
+  :root { --ink:#1d2433; --muted:#667085; --line:#e4e7ec; --bg:#f7f8fa; --card:#fff;
+          --red:#b42318; --red-bg:#fef3f2; --amber:#b54708; --amber-bg:#fffaeb;
+          --green:#067647; --green-bg:#ecfdf3; --blue:#1849a9; --blue-bg:#eff4ff; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.5 -apple-system, "Segoe UI", Inter, Roboto, sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { max-width:960px; margin:0 auto; padding:32px 24px 48px; }
+  header .eyebrow { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  h1 { font-size:28px; margin:4px 0 2px; }
+  .meta { color:var(--muted); }
+  h2 { font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:28px 0 10px; }
+  .tldr { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; padding:16px 20px; margin-top:20px; }
+  .tldr p { margin:0 0 8px; font-size:16px; }
+  .goal { font-weight:600; color:var(--blue); margin:0 !important; font-size:15px !important; }
+  .tiles { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .tile { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .tile .k { font-size:12px; color:var(--muted); }
+  .tile .v { font-size:22px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--muted); }
+  .bad { color:var(--red); } .good { color:var(--green); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:4px 18px 12px; }
+  .card h2 { margin-top:14px; }
+  ul { margin:0; padding-left:18px; } li { margin:6px 0; }
+  .people { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:10px; }
+  .person { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .person .n { font-weight:600; } .person .r { font-size:13px; color:var(--muted); }
+  .tag { display:inline-block; font-size:11px; font-weight:600; padding:1px 7px; border-radius:99px; margin-right:4px; vertical-align:1px; }
+  .sev-high { background:var(--red-bg); color:var(--red); } .sev-medium { background:var(--amber-bg); color:var(--amber); }
+  .sev-low { background:var(--bg); color:var(--muted); }
+  .unverified { background:var(--amber-bg); color:var(--amber); }
+  .cite { font-size:11px; color:var(--blue); text-decoration:none; background:var(--blue-bg); border-radius:4px; padding:0 4px; margin-left:3px; }
+  .risks li::marker { color:var(--red); } .opps li::marker { color:var(--green); }
+  ol.questions li { margin:6px 0; }
+  .sources { font-size:13px; } .sources li { margin:5px 0; color:var(--muted); }
+  .sources b { color:var(--ink); font-weight:600; }
+  footer { margin-top:28px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; }
+  details summary { cursor:pointer; } code { font-size:12px; }
+  .empty { color:var(--muted); font-style:italic; }
+  @media (max-width:760px) { .tiles { grid-template-columns:repeat(2,1fr); } .grid2 { grid-template-columns:1fr; } }
+  @media print { body { background:#fff; } .wrap { padding:0; } details { display:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+
+
+
+
+<header>
+  <div class="eyebrow">Meeting prep brief</div>
+  <h1>Northwind Logistics</h1>
+  <div class="meta">Northwind x YourCo | Q4 Business Review · Wed 25 Nov, 11:00 AM · Stage: Adopting</div>
+</header>
+
+<div class="tldr">
+  <p>Northwind Logistics: health 58 (down), 2 open issue(s), 3 risk signal(s). (Offline mode: rule-based summary. Run with Gemini for real synthesis.)</p>
+  <p class="goal">Goal: Address open issues and agree next steps.</p>
+</div>
+
+<h2>Account snapshot <span style="text-transform:none;letter-spacing:0">(from Gainsight)</span></h2>
+<div class="tiles">
+  <div class="tile"><div class="k">ARR</div><div class="v">$186,000</div><div class="d">Northwind</div></div>
+  <div class="tile"><div class="k">Renewal</div><div class="v bad">95<span style="font-size:14px"> days</span></div><div class="d">2027-02-28</div></div>
+  <div class="tile"><div class="k">Health score</div>
+    <div class="v bad">58</div>
+    <div class="d">was 76 (-18)</div></div>
+  <div class="tile"><div class="k">NPS (latest)</div><div class="v bad">6</div><div class="d">detractor</div></div>
+  <div class="tile"><div class="k">Active users (30d)</div><div class="v">142<span style="font-size:14px;color:var(--muted)">/250</span></div>
+    <div class="d bad">-22% vs prior 30d</div></div>
+</div>
+<p class="meta" style="font-size:13px;margin:8px 2px 0">Health drivers: Product usage <b class="bad">52</b> · Support <b class="bad">41</b> · Sentiment <b class="">63</b> · Engagement <b class="">70</b></p>
+
+<h2>Who's in the room</h2>
+<div class="people">
+  
+  <div class="person">
+    <div class="n">Dana Whitfield</div>
+    <div class="r">VP Operations · Executive Sponsor</div>
+    <div style="font-size:14px;margin-top:4px">Recently emailed about: QBR agenda<a class="cite" href="#src-1">1</a></div>
+  </div>
+  
+  <div class="person">
+    <div class="n">Marcus Lee</div>
+    <div class="r">Ops Systems Manager · Champion</div>
+    <div style="font-size:14px;margin-top:4px">Recently emailed about: Re: Sync delays - any update?<a class="cite" href="#src-2">2</a></div>
+  </div>
+  
+  
+  <div class="person"><div class="n">Arjun Rao</div><div class="r">Internal · joining from our side</div></div>
+  
+</div>
+
+<div class="grid2">
+  <div class="card"><h2>Open issues</h2><ul class="">
+    <li><span class="tag sev-high">HIGH</span>Risk CTA: Usage drop &gt;20% in 30 days (due 2026-11-30)<a class="cite" href="#src-7">7</a></li><li><span class="tag sev-medium">MEDIUM</span>Renewal CTA: Renewal prep - 90 days out (due 2026-11-30)<a class="cite" href="#src-8">8</a></li>
+  </ul></div>
+  <div class="card"><h2>Risks</h2><ul class="risks">
+    <li>Sam Ortiz (AE): Heads up: heard Dana Whitfield may be moving to a new role in January.<a class="cite" href="#src-9">9</a></li><li>Meera Iyer (CS Director): Northwind is on the at-risk list for Q1 renewals.<a class="cite" href="#src-10">10</a></li><li>Health fell from 76 to 58.<a class="cite" href="#src-11">11</a></li>
+  </ul></div>
+  <div class="card"><h2>Opportunities</h2><ul class="opps">
+    <li>Sam Ortiz (AE): Northwind asked about AI forecasting add-on pricing last quarter.<a class="cite" href="#src-12">12</a></li>
+  </ul></div>
+  <div class="card"><h2>What's happened recently</h2><ul class="">
+    <li>Check-in with Marcus.<a class="cite" href="#src-3">3</a></li><li>NPS 6 from Dana Whitfield, citing sync delays.<a class="cite" href="#src-4">4</a></li><li>Q3 review.<a class="cite" href="#src-5">5</a></li><li>Arjun Rao (Support): Root cause for Northwind sync delays found: rate limiting on their WMS connector.<a class="cite" href="#src-6">6</a></li>
+  </ul></div>
+</div>
+
+<h2>Talking points</h2>
+<div class="card" style="padding-top:12px"><ul class="">
+    <li>Respond to &#34;Re: Sync delays - any update?&#34;: Hi Ritika, the ops team hit another 5-hour delay on Tuesday.<a class="cite" href="#src-2">2</a></li><li>Respond to &#34;QBR agenda&#34;: Ritika, for the QBR please cover: (1) the sync issue and what you&#39;re doing about it, (2) adoption by region, (3) how forecasting could help our 2027 peak-season planning.<a class="cite" href="#src-1">1</a></li>
+  </ul></div>
+
+<div class="grid2">
+  <div class="card"><h2>Questions to ask</h2>
+    <ol class="questions"><li>What does success look like for you next quarter?</li></ol>
+  </div>
+  <div class="card"><h2>Watch-outs</h2><p class="empty">Nothing found.</p></div>
+</div>
+
+<h2>Sources</h2>
+<ol class="sources">
+  
+  <li id="src-1"><b>Gmail</b> · dana.whitfield@northwind.io · 2026-11-18. QBR agenda: Ritika, for the QBR please cover: (1) the sync issue and what you&#39;re doing about it, (2) adoption by region, (3) how forecasting could help our 2027 peak-season planning. Elena from Finance may join for the l…</li>
+  
+  <li id="src-2"><b>Gmail</b> · marcus.lee@northwind.io · 2026-11-20. Re: Sync delays - any update?: Hi Ritika, the ops team hit another 5-hour delay on Tuesday. Dana will ask about this at the QBR, so it would help to have a firm fix date and a plan to stop it recurring. Thanks, Marcus</li>
+  
+  <li id="src-3"><b>Gainsight</b> · Call · 2026-11-05. Check-in with Marcus. Data sync from WMS delayed up to 6 hours on 3 occasions; support ticket raised. Marcus wants an ETA before the QBR.</li>
+  
+  <li id="src-4"><b>Gainsight</b> · Survey · 2026-10-14. NPS 6 from Dana Whitfield, citing sync delays.</li>
+  
+  <li id="src-5"><b>Gainsight</b> · Meeting · 2026-09-18. Q3 review. Dana asked about forecasting features for 2027 planning; interested in the AI forecasting add-on.</li>
+  
+  <li id="src-6"><b>Slack #acct-northwind</b> · Arjun Rao (Support) · 2026-11-21. Root cause for Northwind sync delays found: rate limiting on their WMS connector. Fix is in the 26.12 release, ETA Dec 9.</li>
+  
+  <li id="src-7"><b>Gainsight</b> · Risk · due 2026-11-30. Usage drop &gt;20% in 30 days</li>
+  
+  <li id="src-8"><b>Gainsight</b> · Renewal · due 2026-11-30. Renewal prep - 90 days out</li>
+  
+  <li id="src-9"><b>Slack #acct-northwind</b> · Sam Ortiz (AE) · 2026-11-19. Heads up: heard Dana Whitfield may be moving to a new role in January. Worth confirming who owns the renewal on their side.</li>
+  
+  <li id="src-10"><b>Slack #cs-leadership</b> · Meera Iyer (CS Director) · 2026-11-20. Northwind is on the at-risk list for Q1 renewals. Please come out of the QBR with a mutual success plan and renewal owner confirmed.</li>
+  
+  <li id="src-11"><b>Gainsight</b> · Account profile · current. Health score, usage, NPS and stakeholder roles</li>
+  
+  <li id="src-12"><b>Slack #acct-northwind</b> · Sam Ortiz (AE) · 2026-11-12. Northwind asked about AI forecasting add-on pricing last quarter. Could be part of the renewal conversation if sentiment recovers.</li>
+  
+</ol>
+
+<footer>
+  <b>Grounding check:</b> 14 of 14 statements (100%) are backed by a source the agent actually retrieved.
+  
+  <details style="margin-top:8px"><summary>How this brief was made (offline rule-based mode, 3 tool calls)</summary>
+    <ul><li><code>get_account_profile({&#34;company_id&#34;: &#34;gs-co-northwind&#34;}) -&gt; 1 result(s)</code></li><li><code>search_slack({&#34;query&#34;: &#34;Northwind&#34;}) -&gt; 4 result(s)</code></li><li><code>search_gmail({&#34;query&#34;: &#34;northwind.io&#34;}) -&gt; 2 result(s)</code></li></ul>
+  </details>
+</footer>
+
+</div>
+</body>
+</html>

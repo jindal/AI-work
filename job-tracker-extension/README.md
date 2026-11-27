@@ -4,18 +4,9 @@ When a job page shows **"Applied"**, click the extension and then **Note**. A mo
 
 The point is to keep a record of applications that never send a confirmation email.
 
-<table>
-  <tr>
-    <td align="center"><img src="screenshots/popup-review.png" width="300" alt="Review popup with extracted company, role and location"></td>
-    <td align="center" valign="top"><img src="screenshots/popup-done.png" width="300" alt="Saved confirmation"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>1. Click <b>Note</b>: fields are extracted locally. Check them, then save.</sub></td>
-    <td align="center"><sub>2. Saved to the Google Sheet tracker</sub></td>
-  </tr>
-</table>
+![Review popup and saved confirmation](screenshot.png)
 
-<sub>The screenshots use sample data.</sub>
+<sub>Left: click <b>Note</b>, check the extracted fields, save. Right: saved to the Google Sheet tracker. The screenshot uses sample data.</sub>
 
 ## How it works
 
@@ -64,7 +55,7 @@ Ollama blocks browser extensions by default. Allow them like this:
 `Code.gs` is set up for **"Job Application Tracker – Ritika Jindal"**, the **Applications** tab. It writes into the first empty row and leaves the formula columns (A #, N, O) alone. It uses the existing dropdown values for Source, Status and Priority. The Summary and Daily Log tabs pick up new rows automatically.
 
 1. Open the tracker spreadsheet.
-2. Open **Extensions → Apps Script**, delete the sample code and paste in everything from `apps-script/Code.gs`.
+2. Open **Extensions → Apps Script**, delete the sample code and paste in everything from `Code.gs`.
 3. Change `TOKEN` at the top to any random string and save.
 4. Click **Deploy → New deployment**, then the gear icon, then **Web app**:
    - Execute as: **Me**
@@ -77,7 +68,16 @@ Ollama blocks browser extensions by default. Allow them like this:
 1. Go to `chrome://extensions` and turn on **Developer mode** (top right).
 2. Click **Load unpacked** and select this folder.
 3. Pin the extension (puzzle icon, then the pin).
-4. Open the extension's **Settings** (the ⚙︎ in the popup). Paste the web app URL and the token, then click **Test Ollama** and **Test sheet**. Both should show ✓. Click **Save settings**.
+4. Click the extension icon, then **⚙︎** to open Settings inside the popup. Paste the web app URL and the token, then click **Test Ollama** and **Test sheet**. Both should show ✓. Click **Save settings**.
+
+## Files
+| File | What it is |
+|---|---|
+| `manifest.json` | Chrome extension config |
+| `core.js` | All the logic: page reader, local model calls, Google Sheet client, and the background worker that runs captures per tab |
+| `popup.html` / `popup.js` | The popup: capture, review, save and settings. Chrome requires the script to be a separate file |
+| `Code.gs` | Google Apps Script to paste into the tracker sheet |
+| `icon.png`, `screenshot.png` | Icon and README image |
 
 ## Daily use
 1. Open a job you've applied to.

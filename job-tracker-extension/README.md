@@ -8,6 +8,9 @@ Open any page that says you've applied, click the extension and then **Note**. A
 
 <sub>The screenshot uses sample data.</sub>
 
+### Key screens
+![Instant capture, hallucination check, duplicate check and settings](screens.png)
+
 ## The problem
 When you apply to dozens of roles, an email-based tracker misses every company that doesn't send a confirmation. Those applications fall through the cracks: no follow-up, no record, sometimes you apply twice. This extension captures the application at the moment it happens, on the page itself.
 
@@ -36,6 +39,32 @@ Job page
   ▼
 Review popup  ──►  Google Apps Script  ──►  Google Sheet (first empty row, duplicate check)
 ```
+
+### Decision logic in detail
+
+**1. Capture.** Each capture runs in the background worker and is tracked per tab.
+
+| Step | What happens |
+|---|---|
+| Click **Note** | A screenshot is taken straight away, while the tab is still visible, and the page is read. |
+| Read the page | The reader collects: schema.org `JobPosting` data; the open job's header, using per-site selectors for LinkedIn, Naukri, Workday, Lever and Greenhouse; confirmation phrases ("received your application for …"); a requisition or job ID; "applied" phrases; and the main job panel's text (3,000 characters if structured data exists, otherwise 6,000). Side lists and "similar jobs" are skipped. |
+| Instant result | If the page gives the role, the form shows it within about a second. The company comes from the header, then the structured data, then a guess from the URL (`careers.acme.com` → Acme). |
+| Text model | Runs when there's any usable text. It returns a fixed JSON format at temperature 0, capped at 200 tokens. The model stays loaded for 30 minutes and starts loading when the popup opens. |
+| Trust order | Page header and structured data first, then the model. Values read from the page always override the model's. Confidence is set to high when both the title and the company come from the header. |
+| Grounding check | If the model's role isn't found anywhere in the page text, confidence is set to low and the popup shows "Please check the role". |
+| Vision fallback | Runs only if company or role is still missing, or confidence is low. The screenshot is resized to 1,280 px wide and sent to the vision model. Its answers fill gaps without overwriting good text-based values. |
+| Auto-save | Only if it's turned on in Settings, confidence is high, company and role are both present, and the job isn't already logged. |
+
+**2. Review.** What you type is saved as a draft for that tab, so it survives the popup closing, and the model never overwrites it. The extension icon shows **…** while it's working, **✓** when it's ready to save and **!** on an error.
+
+**3. Save (Apps Script).**
+- **Duplicates:** the job counts as a duplicate if the link matches (ignoring tracking parameters and trailing slashes) or if company + role match (ignoring case and punctuation). The popup also warns as soon as it opens if this browser has logged the job before. **Save anyway** overrides the check.
+- **Where the row goes:** the first empty row, based on the Company column. Formula columns are never written. If the row has no formulas or dropdowns yet, they're copied from the row above. A lock stops two saves from colliding.
+- **Values:** Source, Status and Priority are matched to the sheet's dropdown values. Anything unknown falls back to *Careers Site*, *Applied* and *Medium*. Last Update is set to today and Next Step to "Wait for recruiter".
+
+**4. URLs.** Tracking parameters are stripped and job-ID parameters are kept. LinkedIn search and collection links are turned into `/jobs/view/<id>`, so the same job always gets the same link.
+
+**5. Settings.** A link pasted into the wrong box (for example, the Google link in the Ollama box) is repaired automatically when you save.
 
 ## AI concepts in this project
 
@@ -124,7 +153,7 @@ It fills the first empty row and leaves the formula columns (#, Days Since Appli
 | `core.js` | All the logic: page reader, local model calls, Google Sheet client, and the background worker that runs captures per tab |
 | `popup.html` / `popup.js` | The popup: capture, review, save and settings. Chrome requires the script to be a separate file |
 | `Code.gs` | Google Apps Script to paste into the tracker sheet |
-| `icon.png`, `screenshot.png` | Icon and README image |
+| `icon.png`, `screenshot.png`, `screens.png` | Icon and README images |
 
 ## Success criteria
 - An application is logged in 2 clicks or fewer, in under 10 seconds once the model is loaded

@@ -1,7 +1,7 @@
 // Popup: shows the state of the current tab's capture (the work runs in background.js).
 
 const $ = (id) => document.getElementById(id);
-const views = ["viewStart", "viewLoading", "viewReview", "viewDone"];
+const views = ["viewStart", "viewLoading", "viewReview", "viewDone", "viewSettings"];
 const FIELD_MAP = { f_company: "company", f_role: "role", f_location: "location", f_date: "date_applied",
                     f_status: "status", f_source: "source", f_jobid: "job_id", f_notes: "notes",
                     f_priority: "priority", f_referrer: "referrer" };
@@ -29,7 +29,8 @@ async function init() {
   warmUp(settings);
   [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-  $("openSettings").onclick = (e) => { e.preventDefault(); chrome.runtime.openOptionsPage(); };
+  $("openSettings").onclick = (e) => { e.preventDefault(); openSettings(); };
+  setupSettings();
   $("noteBtn").onclick = startCapture;
   $("retryBtn").onclick = startCapture;
   $("saveBtn").onclick = () => save(false);
@@ -58,7 +59,7 @@ async function init() {
   if (l) banner(`Already logged on ${l.loggedOn}: ${l.role} at ${l.company}.`, true);
 
   if (!settings.sheetUrl) showError("One-time setup: add your Google Sheet web app URL.",
-    button("Open settings", () => chrome.runtime.openOptionsPage()));
+    button("Open settings", () => openSettings()));
 
   // Render this tab's current state and follow updates from the background worker.
   render((await chrome.storage.session.get(jobKey()))[jobKey()]);
@@ -77,6 +78,7 @@ function startCapture() {
 
 function render(j) {
   job = j;
+  if (!$("viewSettings").classList.contains("hidden")) return; // don't jump away while you're in Settings
   // Ignore state left over from a different page in this tab.
   if (!j || (j.normUrl && j.normUrl !== normalizeUrl(tab.url) && j.status !== "saved")) return show("viewStart");
 
@@ -87,7 +89,7 @@ function render(j) {
   }
   if (j.status === "error") {
     show("viewStart");
-    return showError(j.message, /Settings/.test(j.message) ? button("Open settings", () => chrome.runtime.openOptionsPage()) : null);
+    return showError(j.message, /Settings/.test(j.message) ? button("Open settings", () => openSettings()) : null);
   }
   if (j.status === "saved") {
     $("doneText").textContent = `Logged ${j.role} at ${j.company}.`;
@@ -144,9 +146,92 @@ async function save(force) {
       button("Save anyway", () => save(true)));
   }
   if (res?.status === "error") {
-    return showError(res.message, /Settings/.test(res.message) ? button("Open settings", () => chrome.runtime.openOptionsPage()) : null);
+    return showError(res.message, /Settings/.test(res.message) ? button("Open settings", () => openSettings()) : null);
   }
   // Success: the background worker sets status "saved" and render() shows the done view.
+}
+
+
+/* ───────────── Settings panel ───────────── */
+
+const SETTING_FIELDS = ["ollamaUrl", "textModel", "visionModel", "sheetUrl", "token"];
+let viewBeforeSettings = "viewStart";
+const GOOGLE_EXEC = /https:\/\/script\.google\.com\/macros\/s\/[^/\s]+\/exec/;
+const HOST_PORT = /^(?:https?:\/\/)?(localhost|127\.0\.0\.1|[\w.-]+):(\d+)/i;
+
+async function openSettings() {
+  viewBeforeSettings = views.find((v) => !$(v).classList.contains("hidden")) || "viewStart";
+  const s = await getSettings();
+  SETTING_FIELDS.forEach((f) => ($(f).value = s[f] || ""));
+  $("autoSave").checked = !!s.autoSave;
+  clearError();
+  show("viewSettings");
+}
+
+function setStatus(id, text, ok) {
+  $(id).textContent = text;
+  $(id).className = "status " + (ok === true ? "ok" : ok === false ? "bad" : "");
+}
+
+// Read the form, repairing common paste mistakes (e.g. the Google link pasted into the Ollama box).
+function readSettings() {
+  const raw = $("ollamaUrl").value.trim();
+  const g = raw.match(GOOGLE_EXEC);
+  if (g && !$("sheetUrl").value.trim()) $("sheetUrl").value = g[0];
+  const hp = raw.match(HOST_PORT);
+  $("ollamaUrl").value = hp ? `http://${hp[1]}:${hp[2]}` : DEFAULT_SETTINGS.ollamaUrl;
+  const sm = $("sheetUrl").value.trim().match(GOOGLE_EXEC);
+  if (sm) $("sheetUrl").value = sm[0];
+
+  const s = {};
+  SETTING_FIELDS.forEach((f) => (s[f] = $(f).value.trim()));
+  s.autoSave = $("autoSave").checked;
+  return s;
+}
+
+function setupSettings() {
+  $("closeSettings").onclick = async () => {
+    show(viewBeforeSettings);
+    render((await chrome.storage.session.get(jobKey()))[jobKey()]);
+  };
+
+  $("saveSettings").onclick = async () => {
+    const s = readSettings();
+    if (s.sheetUrl && !GOOGLE_EXEC.test(s.sheetUrl)) return setStatus("savedStatus", "Web app URL should look like https://script.google.com/macros/s/…/exec", false);
+    await chrome.storage.sync.set(s);
+    settings = { ...settings, ...s };
+    setStatus("savedStatus", "Saved ✓", true);
+    setTimeout(() => setStatus("savedStatus", ""), 2000);
+  };
+
+  $("testOllama").onclick = async () => {
+    const s = readSettings();
+    setStatus("ollamaStatus", "Checking…");
+    try {
+      const res = await fetch(`${s.ollamaUrl}/api/tags`);
+      if (res.status === 403) throw new Error("Blocked: set OLLAMA_ORIGINS=chrome-extension://* and restart Ollama");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const { models = [] } = await res.json();
+      const names = models.map((m) => m.name);
+      const wanted = [...new Set([s.textModel, s.visionModel])];
+      const missing = wanted.filter((m) => !names.includes(m) && !names.includes(m + ":latest"));
+      if (missing.length) setStatus("ollamaStatus", `Connected, but missing: ${missing.join(", ")}. Run: ollama pull ${missing[0]}`, false);
+      else setStatus("ollamaStatus", `Connected ✓ Models ready: ${wanted.join(", ")}`, true);
+    } catch (e) {
+      setStatus("ollamaStatus", e.message.startsWith("Blocked") ? e.message : "Can't reach Ollama. Is it running? " + e.message, false);
+    }
+  };
+
+  $("testSheet").onclick = async () => {
+    setStatus("sheetStatus", "Checking…");
+    try {
+      const res = await postToSheet(readSettings(), { action: "ping" });
+      if (res.sheetLink) await chrome.storage.local.set({ sheetLink: res.sheetLink });
+      setStatus("sheetStatus", `Connected ✓ ${res.count} application(s) in "${res.sheetName}"`, true);
+    } catch (e) {
+      setStatus("sheetStatus", e.message, false);
+    }
+  };
 }
 
 init();

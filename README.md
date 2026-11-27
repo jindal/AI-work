@@ -5,6 +5,8 @@ At Gainsight I build AI products for customer success teams, including Copilot, 
 
 This repo holds hands-on AI projects I've built to explore how agents, retrieval and LLM-powered tools work in practice.
 
+🌐 **Personal website:** [jindal.github.io/AI-work](https://jindal.github.io/AI-work/)
+
 ## Projects
 
 ### [CSM Meeting Prep Agent](csm-meeting-prep-agent/)

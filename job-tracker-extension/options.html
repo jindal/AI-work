@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Applied Job Tracker – Settings</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    body { width: auto; max-width: 560px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 18px; } h2 { font-size: 14px; margin-top: 22px; }
+    .check { display: flex; gap: 8px; align-items: center; font-weight: 400; color: #1f2328; font-size: 13px; }
+    .check input { width: auto; margin: 0; }
+    .status { margin-left: 8px; color: #57606a; }
+    .ok { color: #1a7f37; } .bad { color: #cf222e; }
+    .btns { display: flex; gap: 8px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <h1>Applied Job Tracker – Settings</h1>
+
+  <h2>Local model (Ollama)</h2>
+  <label>Ollama URL<input id="ollamaUrl"></label>
+  <label>Text model<input id="textModel" placeholder="gemma3:4b"></label>
+  <label>Vision model (used only when page text isn't enough)<input id="visionModel" placeholder="gemma3:4b"></label>
+  <div class="btns"><button id="testOllama">Test Ollama</button><span id="ollamaStatus" class="status"></span></div>
+
+  <h2>Tracker (Google Sheet)</h2>
+  <label>Apps Script web app URL (ends in /exec)<input id="sheetUrl" placeholder="https://script.google.com/macros/s/.../exec"></label>
+  <label>Secret token (same as TOKEN in Code.gs)<input id="token" type="password"></label>
+  <div class="btns"><button id="testSheet">Test sheet</button><span id="sheetStatus" class="status"></span></div>
+
+  <h2>Behaviour</h2>
+  <label class="check"><input type="checkbox" id="autoSave"> Auto-save without review when the model is confident and it's not a duplicate</label>
+
+  <div class="btns" style="margin-top:20px">
+    <button id="save" class="primary">Save settings</button><span id="saved" class="status"></span>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="sheet.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

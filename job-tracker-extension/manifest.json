@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Applied Job Tracker",
+  "version": "0.1.0",
+  "description": "One click on a job page you've applied to: a local Ollama model extracts company, role and location, and logs it to your Google Sheet.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Note this application",
+    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "options_page": "options.html",
+  "background": { "service_worker": "background.js" },
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "http://localhost:11434/*",
+    "http://127.0.0.1:11434/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ]
+}

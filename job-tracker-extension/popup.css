@@ -1,0 +1,40 @@
+* { box-sizing: border-box; }
+body {
+  width: 360px; margin: 0; padding: 12px 14px 14px;
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1f2328; background: #fff;
+}
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.brand { font-weight: 600; font-size: 14px; }
+header a { color: #57606a; text-decoration: none; font-size: 16px; }
+.hidden { display: none !important; }
+.center { text-align: center; }
+.hint { color: #57606a; margin: 4px 0 12px; }
+.meta { color: #8c959f; font-size: 11px; margin: 6px 0 0; }
+
+label { display: block; font-size: 11px; font-weight: 600; color: #57606a; margin-bottom: 8px; }
+input, select, textarea {
+  display: block; width: 100%; margin-top: 3px; padding: 6px 8px;
+  border: 1px solid #d0d7de; border-radius: 6px; font: inherit; color: inherit; background: #fff;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid #0969da33; border-color: #0969da; }
+.row { display: flex; gap: 8px; }
+.row label { flex: 1; }
+
+button { font: inherit; border-radius: 6px; padding: 7px 12px; cursor: pointer; border: 1px solid #d0d7de; background: #f6f8fa; }
+button.primary { background: #1f6feb; border-color: #1f6feb; color: #fff; font-weight: 600; }
+button.primary:disabled { opacity: .6; cursor: default; }
+button.big { width: 100%; padding: 10px; font-size: 14px; }
+button.ghost { background: transparent; }
+.actions { display: flex; justify-content: space-between; margin-top: 10px; }
+
+.banner { background: #ddf4ff; border: 1px solid #54aeff66; border-radius: 6px; padding: 8px; margin-bottom: 10px; }
+.banner.dup { background: #fff8c5; border-color: #d4a72c66; }
+.warn { background: #fff8c5; border-radius: 6px; padding: 6px 8px; margin-bottom: 8px; font-size: 12px; }
+.error { background: #ffebe9; border: 1px solid #ff818266; color: #82071e; border-radius: 6px; padding: 8px; margin-top: 10px; white-space: pre-wrap; }
+.error button { margin-top: 6px; }
+
+.spinner { width: 28px; height: 28px; margin: 18px auto 8px; border: 3px solid #d0d7de; border-top-color: #1f6feb; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.tick { font-size: 32px; color: #1a7f37; margin: 8px 0 0; }
+#viewDone a { color: #0969da; }

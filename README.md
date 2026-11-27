@@ -15,6 +15,10 @@ It writes a one-page HTML prep brief with talking points, risks and opportunitie
 A web app that scores how well a resume fits a job description, with a scorecard of strengths, gaps and a clear recommendation.
 It then suggests edits you can accept or skip and gives back a tailored resume in the original PDF's format. [Open the app →](https://jindal.github.io/AI-work/resume-jd-matcher/)
 
+### [Applied Job Tracker (Chrome extension)](job-tracker-extension/)
+A Chrome extension that logs a job application in one click, even when the company never sends a confirmation email.
+A local open-weight model (Gemma via Ollama) reads the page, falling back to a screenshot when the text isn't enough, and saves the company, role and location to a Google Sheet tracker with a duplicate check. Nothing leaves the laptop except the saved row.
+
 ### [Personal website](https://jindal.github.io/AI-work/)
 My portfolio site, hosted on GitHub Pages from this repository (`index.html`).
 It covers my background, the AI products I've worked on, and how to get in touch.

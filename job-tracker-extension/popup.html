@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <span class="brand">Applied Job Tracker</span>
+    <a href="#" id="openSettings" title="Settings">⚙︎</a>
+  </header>
+
+  <div id="banner" class="banner hidden"></div>
+
+  <!-- Step 1: capture -->
+  <section id="viewStart">
+    <p class="hint">Open a job you've applied to, then click Note.</p>
+    <button id="noteBtn" class="primary big">Note this application</button>
+  </section>
+
+  <!-- Loading -->
+  <section id="viewLoading" class="hidden">
+    <div class="spinner"></div>
+    <p id="loadingText" class="hint center">Reading the page…</p>
+  </section>
+
+  <!-- Step 2: review -->
+  <section id="viewReview" class="hidden">
+    <div id="appliedWarn" class="warn hidden">This page doesn't say "applied". Save anyway if you applied elsewhere.</div>
+    <div id="roleWarn" class="warn hidden">Please check the role: the model's answer doesn't appear on the page.</div>
+    <label>Company<input id="f_company" required></label>
+    <label>Role<input id="f_role" required></label>
+    <label>Location<input id="f_location"></label>
+    <div class="row">
+      <label>Date applied<input id="f_date" type="date"></label>
+      <label>Status
+        <select id="f_status">
+          <option>Preparing</option><option>Referred</option><option selected>Applied</option>
+          <option>Assessment</option><option>Recruiter Screen</option><option>HM Interview</option>
+          <option>Interview Loop</option><option>Final Round</option><option>Offer</option>
+          <option>Rejected</option><option>Withdrawn</option><option>On Hold</option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <label>Source
+        <select id="f_source">
+          <option>Referral</option><option>LinkedIn</option><option>Careers Site</option>
+          <option>Recruiter Reached Out</option><option>Naukri</option><option>Instahire / Other</option><option>Network</option>
+        </select>
+      </label>
+      <label>Priority
+        <select id="f_priority"><option>High</option><option selected>Medium</option><option>Low</option></select>
+      </label>
+    </div>
+    <div class="row">
+      <label>Referrer / Contact<input id="f_referrer" placeholder="optional"></label>
+      <label>Job ID<input id="f_jobid"></label>
+    </div>
+    <label>Notes<textarea id="f_notes" rows="2" placeholder="Referral from…, recruiter name, etc."></textarea></label>
+    <p id="meta" class="meta"></p>
+    <div class="actions">
+      <button id="retryBtn" class="ghost">Re-read</button>
+      <button id="saveBtn" class="primary">Save to tracker</button>
+    </div>
+  </section>
+
+  <!-- Step 3: done -->
+  <section id="viewDone" class="hidden center">
+    <div class="tick">✓</div>
+    <p id="doneText"></p>
+    <a href="#" id="openSheet">Open tracker</a>
+  </section>
+
+  <div id="error" class="error hidden"></div>
+
+  <script src="common.js"></script>
+  <script src="llm.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

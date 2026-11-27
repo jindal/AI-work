@@ -4,6 +4,19 @@ When a job page shows **"Applied"**, click the extension and then **Note**. A mo
 
 The point is to keep a record of applications that never send a confirmation email.
 
+<table>
+  <tr>
+    <td align="center"><img src="screenshots/popup-review.png" width="300" alt="Review popup with extracted company, role and location"></td>
+    <td align="center" valign="top"><img src="screenshots/popup-done.png" width="300" alt="Saved confirmation"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>1. Click <b>Note</b>: fields are extracted locally. Check them, then save.</sub></td>
+    <td align="center"><sub>2. Saved to the Google Sheet tracker</sub></td>
+  </tr>
+</table>
+
+<sub>The screenshots use sample data.</sub>
+
 ## How it works
 
 ```
